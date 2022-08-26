@@ -1,0 +1,134 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Imports & Exports
+
+Imports should appear at the top of the [module](.) as at some point it will be enforced by the compiler
+(to allow for simpler parallelized compilation).
+
+There is no explicit syntax for exporting; all [declarations](../declaration) can be imported from other modules by name.
+
+## Named Imports
+
+Declarations can be imported from other modules by name.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot title="utils.kn"
+func myFunc -> "Hello";
+
+view MyView(content: string) -> <div>{content}</div>;
+```
+
+```knot title="core.kn"
+import { myFunc, MyView } from "@/utils";
+
+const element = <MyView content=myFunc() />;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx title="utils.tsx"
+function myFunc() {
+  return "Hello";
+}
+
+function MyView(content: string) {
+  return <div>{content}</div>;
+}
+```
+
+```tsx title="core.tsx"
+import { myFunc, MyView } from "./utils";
+
+const element = <MyView content={myFunc()} />;
+```
+
+</TabItem>
+</Tabs>
+
+## Import Aliases
+
+Sometimes you may end up with naming conflicts with other declarations if you import using the exact
+name something was exported with. Aliases allow you to rename it within the scope of the module to make it easier to recognize.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot title="utils.kn"
+func handler -> {};
+```
+
+```knot title="core.kn"
+import { handler as fooHandler } from "@/utils";
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx title="utils.tsx"
+function handler() {}
+```
+
+```tsx title="core.tsx"
+import { handler as fooHandler } from "./utils";
+```
+
+</TabItem>
+</Tabs>
+
+## Main Exports
+
+You can also import the main export of any module which is denoted with the `main` keyword.
+
+The import pattern allows importing the just the `main` export, just named exports, or a combination of the two.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot title="view.kn"
+main view MainView -> <div>Welcome!</div>;
+```
+
+```knot title="constants.kn"
+main const otherConst = 100;
+```
+
+```knot title="core.kn"
+import MainView from "@/views";
+
+import mainConst, { otherConst } from "@/constants";
+
+const truthy = mainConst == otherConst;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx title="view.tsx"
+export default function MainView() {
+  return <div>Welcome!</div>;
+}
+```
+
+```tsx title="constants.ts"
+export const otherConst = 100;
+export default otherConst;
+```
+
+```tsx title="core.tsx"
+import MainView from "./views";
+
+import mainConst, { otherConst } from "./constants";
+
+const truthy = mainConst == otherConst;
+```
+
+</TabItem>
+</Tabs>

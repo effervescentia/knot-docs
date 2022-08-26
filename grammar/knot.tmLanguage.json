@@ -1,0 +1,950 @@
+{
+  "fileTypes": ["kn"],
+  "name": "knot",
+  "patterns": [
+    {
+      "include": "#main"
+    }
+  ],
+  "scopeName": "source.knot",
+  "uuid": "",
+  "repository": {
+    "main": {
+      "patterns": [
+        {
+          "include": "#declaration"
+        },
+        {
+          "include": "#storage"
+        },
+        {
+          "include": "#keyword"
+        },
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    },
+    "boolean": {
+      "patterns": [
+        {
+          "match": "(\\btrue\\b)",
+          "name": "constant.language.boolean.true.knot"
+        },
+        {
+          "match": "(\\bfalse\\b)",
+          "name": "constant.language.boolean.false.knot"
+        }
+      ]
+    },
+    "closure": {
+      "patterns": [
+        {
+          "begin": "({)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.block.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#closure__1"
+            }
+          ],
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.block.knot"
+            }
+          }
+        }
+      ]
+    },
+    "closure__1": {
+      "patterns": [
+        {
+          "include": "#variable"
+        },
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    },
+    "constant": {
+      "patterns": [
+        {
+          "match": "(\\bconst\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "storage.type.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "variable.other.constant.knot"
+            }
+          }
+        }
+      ]
+    },
+    "declaration": {
+      "patterns": [
+        {
+          "include": "#constant"
+        },
+        {
+          "include": "#enum"
+        },
+        {
+          "include": "#function"
+        },
+        {
+          "include": "#view"
+        }
+      ]
+    },
+    "enum": {
+      "patterns": [
+        {
+          "match": "(\\benum\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "storage.type.enum.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "entity.name.type.enum.knot"
+            }
+          }
+        },
+        {
+          "begin": "(\\s+)(\\|)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "text.knot"
+            },
+            "2": {
+              "name": "keyword.operator.type.knot"
+            },
+            "3": {
+              "name": "text.knot"
+            },
+            "4": {
+              "name": "variable.other.constant.knot"
+            },
+            "5": {
+              "name": "punctuation.definition.parameters.begin.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#enum__1"
+            }
+          ],
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.parameters.end.knot"
+            }
+          }
+        },
+        {
+          "match": "(\\s+)(\\|)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "text.knot"
+            },
+            "2": {
+              "name": "keyword.operator.type.knot"
+            },
+            "3": {
+              "name": "text.knot"
+            },
+            "4": {
+              "name": "variable.other.constant.knot"
+            }
+          }
+        }
+      ]
+    },
+    "enum__1": {
+      "patterns": [
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "name": "support.type.knot"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    },
+    "expression": {
+      "patterns": [
+        {
+          "include": "#primitive"
+        },
+        {
+          "include": "#group"
+        },
+        {
+          "include": "#closure"
+        },
+        {
+          "include": "#function_call"
+        },
+        {
+          "include": "#identifier"
+        },
+        {
+          "include": "#jsx"
+        }
+      ]
+    },
+    "function": {
+      "patterns": [
+        {
+          "begin": "(\\bfunc\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "storage.type.function.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "entity.name.function.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
+              "name": "punctuation.definition.parameters.begin.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#function__1"
+            }
+          ],
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.parameters.end.knot"
+            }
+          }
+        },
+        {
+          "match": "(\\bfunc\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "storage.type.function.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "entity.name.function.knot"
+            }
+          }
+        }
+      ]
+    },
+    "function__1": {
+      "patterns": [
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(=)",
+          "captures": {
+            "1": {
+              "name": "variable.parameter.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "keyword.operator.assignment.knot"
+            }
+          }
+        },
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(:)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "variable.parameter.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "keyword.operator.type.annotation.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
+              "name": "support.type.knot"
+            }
+          }
+        },
+        {
+          "match": "(:)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.type.annotation.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "support.type.knot"
+            }
+          }
+        },
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    },
+    "function_call": {
+      "patterns": [
+        {
+          "begin": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "meta.brace.round.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#function_call__1"
+            }
+          ],
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "meta.brace.round.knot"
+            }
+          }
+        }
+      ]
+    },
+    "function_call__1": {
+      "patterns": [
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    },
+    "group": {
+      "patterns": [
+        {
+          "begin": "(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "meta.brace.round.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#group__1"
+            }
+          ],
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "meta.brace.round.knot"
+            }
+          }
+        }
+      ]
+    },
+    "group__1": {
+      "patterns": [
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    },
+    "identifier": {
+      "patterns": [
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "name": "variable.other.constant.knot"
+        }
+      ]
+    },
+    "jsx": {
+      "patterns": [
+        {
+          "begin": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "entity.name.tag.knot"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#uid_jsx_parent"
+            }
+          ],
+          "end": "(</)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "entity.name.tag.knot"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          }
+        },
+        {
+          "begin": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "entity.name.tag.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#uid_jsx_complex"
+            }
+          ],
+          "end": "(?:(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>))|(/>)",
+          "endCaptures": {
+            "1": {
+              "name": "entity.name.tag.knot"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.end.knot"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          }
+        },
+        {
+          "begin": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "entity.name.tag.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#uid_jsx_inline"
+            }
+          ],
+          "end": "(/>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          }
+        },
+        {
+          "match": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(/>|>)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "entity.name.tag.knot"
+            },
+            "3": {
+              "name": "text.knot"
+            },
+            "4": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          }
+        },
+        {
+          "match": "(</)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "entity.name.tag.knot"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          }
+        },
+        {
+          "match": "(<)(>)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          }
+        },
+        {
+          "match": "(<)(/>)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          }
+        }
+      ]
+    },
+    "jsx__3": {
+      "patterns": [
+        {
+          "include": "#jsx_inner"
+        }
+      ]
+    },
+    "jsx_attribute": {
+      "patterns": [
+        {
+          "match": "(\\s+)(\\B[\\.\\x{0023}][_a-zA-Z][_a-zA-Z\\d]*\\b|\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(=)",
+          "captures": {
+            "1": {
+              "name": "text.knot"
+            },
+            "2": {
+              "name": "entity.other.attribute-name.knot"
+            },
+            "3": {
+              "name": "keyword.operator.assignment.knot"
+            }
+          }
+        },
+        {
+          "include": "#primitive"
+        },
+        {
+          "match": "(\\s+)(\\B[\\.\\x{0023}][_a-zA-Z][_a-zA-Z\\d]*\\b|\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(=)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "text.knot"
+            },
+            "2": {
+              "name": "entity.other.attribute-name.knot"
+            },
+            "3": {
+              "name": "keyword.operator.assignment.knot"
+            },
+            "4": {
+              "name": "variable.other.constant.knot"
+            }
+          }
+        },
+        {
+          "match": "(\\s+)(\\B[\\.\\x{0023}][_a-zA-Z][_a-zA-Z\\d]*\\b|\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "text.knot"
+            },
+            "2": {
+              "name": "entity.other.attribute-name.knot"
+            }
+          }
+        },
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    },
+    "jsx_inner": {
+      "patterns": [
+        {
+          "include": "#closure"
+        },
+        {
+          "include": "#jsx"
+        },
+        {
+          "match": "([^\\x{003c}\\x{007b}]+)",
+          "name": "text.jsx.knot"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "match": "(\\bimport\\b)",
+          "name": "keyword.control.import.knot"
+        },
+        {
+          "match": "(\\bas\\b)",
+          "name": "keyword.control.as.knot"
+        },
+        {
+          "match": "(\\bfrom\\b)",
+          "name": "keyword.control.from.knot"
+        }
+      ]
+    },
+    "nil": {
+      "patterns": [
+        {
+          "match": "(\\bnil\\b)",
+          "name": "constant.language.nil.knot"
+        }
+      ]
+    },
+    "number": {
+      "patterns": [
+        {
+          "match": "(\\b\\d+\\.\\d+|\\b\\d+)",
+          "name": "constant.numeric.decimal.knot"
+        }
+      ]
+    },
+    "operator": {
+      "patterns": [
+        {
+          "match": "(\\|)",
+          "name": "keyword.operator.type.knot"
+        },
+        {
+          "match": "(=)",
+          "name": "keyword.operator.assignment.knot"
+        },
+        {
+          "match": "(!=|==)",
+          "name": "keyword.operator.comparison.knot"
+        },
+        {
+          "match": "(&&|\\|\\||!)",
+          "name": "keyword.operator.logical.knot"
+        },
+        {
+          "match": "(>=|<=|>|<)",
+          "name": "keyword.operator.relational.knot"
+        },
+        {
+          "match": "(-|\\+|\\*|\\^|/)",
+          "name": "keyword.operator.arithmetic.knot"
+        }
+      ]
+    },
+    "primitive": {
+      "patterns": [
+        {
+          "include": "#nil"
+        },
+        {
+          "include": "#boolean"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#string"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "match": "(\\[|\\])",
+          "name": "meta.brace.square.knot"
+        },
+        {
+          "match": "(\\(|\\))",
+          "name": "meta.brace.round.knot"
+        },
+        {
+          "match": "({|})",
+          "name": "punctuation.definition.block.knot"
+        },
+        {
+          "match": "(:)",
+          "name": "punctuation.separator.key-value.knot"
+        },
+        {
+          "match": "(,)",
+          "name": "punctuation.separator.comma.knot"
+        },
+        {
+          "match": "(\\.)",
+          "name": "punctuation.accessor.knot"
+        },
+        {
+          "match": "(;)",
+          "name": "punctuation.terminator.knot"
+        }
+      ]
+    },
+    "storage": {
+      "patterns": [
+        {
+          "match": "(\\blet\\b|\\bconst\\b)",
+          "name": "storage.type.knot"
+        },
+        {
+          "match": "(\\benum\\b)",
+          "name": "storage.type.enum.knot"
+        },
+        {
+          "match": "(\\bfunc\\b)",
+          "name": "storage.type.function.knot"
+        },
+        {
+          "match": "(\\bview\\b)",
+          "name": "storage.type.function.knot"
+        }
+      ]
+    },
+    "storage_symbol": {
+      "patterns": [
+        {
+          "match": "(->)",
+          "name": "storage.type.arrow.knot"
+        }
+      ]
+    },
+    "string": {
+      "patterns": [
+        {
+          "begin": "(\")",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.begin.knot"
+            }
+          },
+          "contentName": "string.quoted.double.knot",
+          "end": "(\")",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.end.knot"
+            }
+          }
+        }
+      ]
+    },
+    "string__1": {
+      "patterns": []
+    },
+    "symbol": {
+      "patterns": [
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#punctuation"
+        },
+        {
+          "include": "#storage_symbol"
+        }
+      ]
+    },
+    "uid_jsx_complex": {
+      "patterns": [
+        {
+          "begin": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#jsx__3"
+            }
+          ],
+          "end": "(</)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.knot"
+            }
+          }
+        },
+        {
+          "include": "#jsx_attribute"
+        }
+      ]
+    },
+    "uid_jsx_inline": {
+      "patterns": [
+        {
+          "include": "#jsx_attribute"
+        }
+      ]
+    },
+    "uid_jsx_parent": {
+      "patterns": [
+        {
+          "include": "#jsx_inner"
+        }
+      ]
+    },
+    "variable": {
+      "patterns": [
+        {
+          "match": "(\\blet\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "storage.type.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "variable.other.knot"
+            }
+          }
+        }
+      ]
+    },
+    "view": {
+      "patterns": [
+        {
+          "begin": "(\\bview\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "storage.type.view.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "entity.name.view.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
+              "name": "punctuation.definition.parameters.begin.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#view__1"
+            }
+          ],
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.parameters.end.knot"
+            }
+          }
+        },
+        {
+          "match": "(\\bview\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "storage.type.view.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "entity.name.view.knot"
+            }
+          }
+        }
+      ]
+    },
+    "view__1": {
+      "patterns": [
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(=)",
+          "captures": {
+            "1": {
+              "name": "variable.parameter.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "keyword.operator.assignment.knot"
+            }
+          }
+        },
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(:)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "variable.parameter.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "keyword.operator.type.annotation.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
+              "name": "support.type.knot"
+            }
+          }
+        },
+        {
+          "match": "(:)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.type.annotation.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "support.type.knot"
+            }
+          }
+        },
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
+        }
+      ]
+    }
+  }
+}

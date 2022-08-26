@@ -1,0 +1,57 @@
+---
+sidebar_position: 9
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Modules
+
+Modules represent the largest shareable and reusable code element.
+They can be imported from other files in your project.
+
+## Structure
+
+Modules are read from top to bottom and nothing can be referenced before it has been declared.
+This also means that functions cannot be recursively called (for now). There is also a recommended order for entities to appear in modules.
+However, it should be noted that modules with many different entities should often be split into multiple modules to better separate concerns.
+
+- [`import` statements](import)
+- [`const` declarations](../declaration/constant)
+- [`func` declarations](../declaration/function)
+- [`view` declarations](../declaration/view)
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+import mainFunc, { otherFunc } from "@/functions";
+
+const SECRET_NUMBER = 31858293;
+const MORE_SECRET_NUMBER = SECRET_NUMBER + 1;
+
+func isHappy(value: string) -> value == "happy";
+
+main view MyView -> <div>{SECRET_NUMBER}</div>;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+import mainFunc, { otherFunc } from "@/functions";
+
+const SECRET_NUMBER = 31858293;
+const MORE_SECRET_NUMBER = SECRET_NUMBER + 1;
+
+function isHappy(value: string) {
+  return value == "happy";
+}
+
+export default function MyView() {
+  return <div>{SECRET_NUMBER}</div>;
+}
+```
+
+</TabItem>
+</Tabs>

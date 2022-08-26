@@ -1,0 +1,55 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Let Bindings
+
+You can use the `let` keyword to bind a value to some name so it can be referenced withing a closure.
+
+:::info
+Variables in Knot are immutable except for within the scope of state entities (coming soon!).
+:::
+
+## Scope-Local
+
+Since these bindings are local to a closure they can be re-used in different scopes without conflict.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const foo = {
+  let x = 10;
+
+  x + x;
+};
+
+const bar = {
+  let x = 10;
+
+  x / x;
+};
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const foo = (function () {
+  let x = 10;
+
+  return x + x;
+})();
+
+const bar = (function () {
+  let x = 10;
+
+  return x / x;
+})();
+```
+
+</TabItem>
+</Tabs>

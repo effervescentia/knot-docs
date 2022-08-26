@@ -1,0 +1,33 @@
+---
+sidebar_position: 5
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Function Call
+
+Use this syntax to invoke a function and retrieve its result.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+func add(lhs: integer, rhs: integer) -> lhs + rhs;
+
+const result = add(123, 456);
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+function add(lhs: integer, rhs: integer) {
+  return lhs + rhs;
+}
+
+const result = add(123, 456);
+```
+
+</TabItem>
+</Tabs>

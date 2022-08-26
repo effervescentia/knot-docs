@@ -1,0 +1,743 @@
+########################################
+## Header
+########################################
+
+name                    = knot
+file_extensions []      = kn;
+
+########################################
+## Constants
+########################################
+
+__TOKEN     \= [_a-zA-Z][_a-zA-Z\d]*
+
+// keyword
+
+__IMPORT    \= \bimport\b
+__AS        \= \bas\b
+__FROM      \= \bfrom\b
+__LET       \= \blet\b
+__CONST     \= \bconst\b
+__ENUM      \= \benum\b
+__FUNC      \= \bfunc\b
+__VIEW      \= \bview\b
+
+// literal
+
+__NIL       \= \bnil\b
+__TRUE      \= \btrue\b
+__FALSE     \= \bfalse\b
+
+// primitive type
+
+__BOOLEAN   \= \bboolean\b
+__NUMBER    \= \bnumber\b
+__STRING    \= \bstring\b
+__ELEMENT   \= \belement\b
+
+// identifier
+
+__IDENT     \= \b$${__TOKEN}\b
+__PROP      \= \B[\.#]$${__TOKEN}\b|$${__IDENT}
+
+########################################
+## Styles
+########################################
+
+styles[] {
+   .whitespace : style ;
+   
+   // punctuation
+   
+   .punctuation_closure : style {
+      color          = grey
+      textmate_scope = punctuation.definition.block
+   }
+   .punctuation_group : style {
+      color          = grey
+      textmate_scope = meta.brace.round
+   }
+   .punctuation_array : style {
+      color          = grey
+      textmate_scope = meta.brace.square
+   }
+   .punctuation_parameters_begin : style {
+      color          = grey
+      textmate_scope = punctuation.definition.parameters.begin
+   }
+   .punctuation_parameters_end : style {
+      color          = grey
+      textmate_scope = punctuation.definition.parameters.end
+   }
+   .punctuation_string_begin : style {
+      color          = grey
+      textmate_scope = punctuation.definition.string.begin
+   }
+   .punctuation_string_end : style {
+      color          = grey
+      textmate_scope = punctuation.definition.string.end
+   }
+   .punctuation_key_value : style {
+      color          = grey
+      textmate_scope = punctuation.separator.key-value
+   }
+   .punctuation_separator : style {
+      color          = grey
+      textmate_scope = punctuation.separator.comma
+   }
+   .punctuation_accessor : style {
+      color          = grey
+      textmate_scope = punctuation.accessor
+   }
+   .punctuation_terminator : style {
+      color          = grey
+      textmate_scope = punctuation.terminator
+   }
+   .punctuation_tag_begin : style {
+      color          = grey
+      textmate_scope = punctuation.definition.tag.begin
+   }
+   .punctuation_tag_end : style {
+      color          = grey
+      textmate_scope = punctuation.definition.tag.end
+   }
+   
+   // operator
+   
+   .operator_assignment : style {
+      color          = violet_red
+      textmate_scope = keyword.operator.assignment
+   }
+   .operator_type_defn : style {
+      color          = violet_red
+      textmate_scope = keyword.operator.type.annotation
+   }
+   .operator_type : style {
+      color          = violet_red
+      textmate_scope = keyword.operator.type
+   }
+   .operator_comparison : style {
+      color          = violet_red
+      textmate_scope = keyword.operator.comparison
+   }
+   .operator_logical : style {
+      color          = violet_red
+      textmate_scope = keyword.operator.logical
+   }
+   .operator_relational : style {
+      color          = violet_red
+      textmate_scope = keyword.operator.relational
+   }
+   .operator_arithmetic : style {
+      color          = violet_red
+      textmate_scope = keyword.operator.arithmetic
+   }
+   
+   // keyword
+
+   .keyword_import : style {
+      color          = red
+      textmate_scope = keyword.control.import
+   }
+   .keyword_as : style {
+      color          = red
+      textmate_scope = keyword.control.as
+   }
+   .keyword_from : style {
+      color          = red
+      textmate_scope = keyword.control.from
+   }
+   
+   // storage
+   
+   .storage : style {
+      color          = red
+      textmate_scope = storage.type
+   }
+   .storage_enum : style {
+      color          = red
+      textmate_scope = storage.type.enum
+   }
+   .storage_function : style {
+      color          = red
+      textmate_scope = storage.type.function
+   }
+   .storage_view : style {
+      color          = red
+      textmate_scope = storage.type.view
+   }
+   .storage_arrow : style {
+      color          = red
+      textmate_scope = storage.type.arrow
+   }
+   
+   // literal
+   
+   .nil : style {
+      color          = violet
+      textmate_scope = constant.language.nil
+   }
+   .boolean_true : style {
+      color          = purple
+      textmate_scope = constant.language.boolean.true
+   }
+   .boolean_false : style {
+      color          = purple
+      textmate_scope = constant.language.boolean.false
+   }
+   .number : style {
+      color          = #9b77ff
+      textmate_scope = constant.numeric.decimal
+   }
+   
+   // string literal
+   
+   .quoted_string : style {
+      color          = yellow
+      textmate_scope = string.quoted.double
+   }
+   .jsx_string : style {
+      color          = yellow
+      textmate_scope = text.jsx
+   }
+   
+   // identifier
+   
+   .identifier : style {
+      color          = #5ffc6f
+      textmate_scope = variable.other.constant
+   }
+   .tag_name : style {
+      color          = #14ad03
+      textmate_scope = entity.name.tag
+   }
+   
+   // type
+   
+   .type : style {
+      color          = orange
+      textmate_scope = support.type
+   }
+   .primitive_type : style {
+      color          = orange
+      textmate_scope = support.type.primitive
+   }
+   
+   // declaration
+   
+   .enum : style {
+      color          = cyan
+      textmate_scope = entity.name.type.enum
+   }
+   .view : style {
+      color          = cyan
+      textmate_scope = entity.name.view
+   }
+   .constant : style {
+      color          = #1583ea
+      textmate_scope = variable.other.constant
+   }
+   .variable : style {
+      color          = #1583ea
+      textmate_scope = variable.other
+   }
+   .function : style {
+      color          = #2af8fc
+      textmate_scope = entity.name.function
+   }
+   .parameter : style {
+      color          = #6bb2ff
+      textmate_scope = variable.parameter
+   }
+   .attribute : style {
+      color          = #6bb2ff
+      textmate_scope = entity.other.attribute-name
+   }
+}
+
+########################################
+## Contexts
+########################################
+
+contexts[] {
+
+main : context {
+   : include "declaration";
+   : include "storage";
+   : include "keyword";
+   : include "expression";
+   : include "symbol";
+}
+
+declaration : context {
+   : include "constant";
+   : include "enum";
+   : include "function";
+   : include "view";
+}
+
+expression : context {
+   : include "primitive";
+   : include "group";
+   : include "closure";
+   : include "function_call";
+   : include "identifier";
+   : include "jsx";
+}
+
+primitive : context {
+   : include "nil";
+   : include "boolean";
+   : include "number";
+   : include "string";
+}
+
+symbol : context {
+   : include "operator";
+   : include "punctuation";
+   : include "storage_symbol";
+}
+
+## Punctuation ##
+
+punctuation : context {
+   : pattern {
+      regex    \= (\[|\])
+      styles[] = .punctuation_array;
+   }
+   
+   : pattern {
+      regex    \= (\(|\))
+      styles[] = .punctuation_group;
+   }
+   
+   : pattern {
+      regex    \= ({|})
+      styles[] = .punctuation_closure;
+   }
+   
+   : pattern {
+      regex    \= (:)
+      styles[] = .punctuation_key_value;
+   }
+   
+   : pattern {
+      regex    \= (,)
+      styles[] = .punctuation_separator;
+   }
+   
+   : pattern {
+      regex    \= (\.)
+      styles[] = .punctuation_accessor;
+   }
+   
+   : pattern {
+      regex    \= (;)
+      styles[] = .punctuation_terminator;
+   }
+}
+
+## Operator ##
+
+operator : context {
+    : pattern {
+      regex    \= (\|)
+      styles[] = .operator_type;
+   }
+
+   : pattern {
+      regex    \= (=)
+      styles[] = .operator_assignment;
+   }
+   
+   : pattern {
+      regex    \= (!=|==)
+      styles[] = .operator_comparison;
+   }
+   
+   : pattern {
+      regex    \= (&&|\|\||!)
+      styles[] = .operator_logical;
+   }
+   
+   : pattern {
+      regex    \= (>=|<=|>|<)
+      styles[] = .operator_relational;
+   }
+   
+   : pattern {
+      regex    \= (-|\+|\*|\^|/)
+      styles[] = .operator_arithmetic;
+   }
+}
+
+## Keywords ##
+
+keyword : context {
+   : pattern {
+      regex    \= ($${__IMPORT})
+      styles[] = .keyword_import;
+   }
+   
+   : pattern {
+      regex    \= ($${__AS})
+      styles[] = .keyword_as;
+   }
+   
+   : pattern {
+      regex    \= ($${__FROM})
+      styles[] = .keyword_from;
+   }
+}
+
+## Storage ##
+
+storage_symbol : context {
+   : pattern {
+      regex    \= (->)
+      styles[] = .storage_arrow;
+   }
+}
+
+storage : context {
+   : pattern {
+      regex    \= ($${__LET}|$${__CONST})
+      styles[] = .storage;
+   }
+   
+   : pattern {
+      regex    \= ($${__ENUM})
+      styles[] = .storage_enum;
+   }
+   
+   : pattern {
+      regex    \= ($${__FUNC})
+      styles[] = .storage_function;
+   }
+   
+   : pattern {
+      regex    \= ($${__VIEW})
+      styles[] = .storage_function;
+   }
+}
+   
+## Primitives ##
+
+
+nil : context {
+   : pattern {
+      regex    \= ($${__NIL})
+      styles[] = .nil;
+   }
+}
+
+boolean : context {
+   : pattern {
+      regex    \= ($${__TRUE})
+      styles[] = .boolean_true;
+   }
+   
+   : pattern {
+      regex    \= ($${__FALSE})
+      styles[] = .boolean_false;
+   }
+}
+
+number : context {
+   : pattern {
+      regex    \= (\b\d+\.\d+|\b\d+)
+      styles[] = .number;
+   }
+}
+
+string : context {
+   : inline_push {
+      regex          \= (")
+      styles[]       = .punctuation_string_begin;
+      default_style  = .quoted_string
+     
+      : pop {
+         regex       \= (")
+         styles[]    = .punctuation_string_end;
+      }
+   }
+}
+
+## Expressions ##
+
+group : context {
+   : inline_push {
+      regex          \= (\()
+      styles[]       = .punctuation_group;
+      
+      : pop {
+         regex       \= (\))
+         styles[]    = .punctuation_group;
+      }
+   
+      : include "expression";
+      : include "symbol";
+   }
+}
+
+closure : context {
+   : inline_push {
+      regex       \= ({)
+      styles[]    = .punctuation_closure;
+      
+      : pop {
+         regex    \= (})
+         styles[] = .punctuation_closure;
+      }
+   
+      : include "variable";
+      : include "expression";
+      : include "symbol";
+   }
+}
+
+identifier : context {
+   : pattern {
+      regex    \= ($${__IDENT})
+      styles[] = .identifier;
+   }
+}
+
+jsx_attribute : context {
+   : pattern {
+      regex    \= (\s+)($${__PROP})(=)
+      styles[] = .whitespace, .attribute, .operator_assignment;
+   }
+   
+   : include "primitive";
+   
+   : pattern {
+      regex    \= (\s+)($${__PROP})(=)($${__IDENT})
+      styles[] = .whitespace, .attribute, .operator_assignment, .identifier;
+   }
+      
+   : pattern {
+      regex    \= (\s+)($${__PROP})
+      styles[] = .whitespace, .attribute;
+   }
+   
+   : include "expression";
+   : include "symbol";
+}
+
+jsx_inner : context {
+   : include "closure";
+   : include "jsx";
+
+   : pattern {
+      regex     \= ([^<{]+)
+      styles [] = .jsx_string;
+   }
+}
+
+jsx : context {
+   : inline_push {
+      uid         = uid_jsx_parent
+      regex       \= (<)($${__IDENT})(>)
+      styles[]    = .punctuation_tag_begin, .tag_name, .punctuation_tag_end;
+      
+      : pop {
+         regex    \= (</)($${__IDENT})(>)
+         styles[] = .punctuation_tag_begin, .tag_name, .punctuation_tag_end;
+      }
+      
+      : include "jsx_inner";
+   }
+   
+   : inline_push {
+      uid            = uid_jsx_complex
+      regex          \= (<)($${__IDENT})
+      styles[]       = .punctuation_tag_begin, .tag_name;
+      
+      : pop {
+         regex       \= (?:($${__IDENT})(>))|(/>)
+         styles[]    = .tag_name, .punctuation_tag_end, .punctuation_tag_end;
+      }
+      
+      : inline_push {
+         regex       \= (>)
+         styles[]    = .punctuation_tag_end;
+         
+         : pop {
+            regex    \= (</)
+            styles[] = .punctuation_tag_begin;
+         }
+         
+         : include "jsx_inner";
+      }
+      
+      : include "jsx_attribute";
+   }
+
+   : inline_push {
+      uid         = uid_jsx_inline
+      regex       \= (<)($${__IDENT})
+      styles[]    = .punctuation_tag_begin, .tag_name;
+      
+      : pop {
+         regex    \= (/>)
+         styles[] = .punctuation_tag_end;
+      }
+      
+      : include "jsx_attribute";
+   }
+
+   : pattern {
+      regex    \= (<)($${__IDENT})(\s*)(/>|>)
+      styles[] = .punctuation_tag_begin, .tag_name, .whitespace, .punctuation_tag_end;
+   }
+   
+   : pattern {
+      regex    \= (</)($${__IDENT})(>)
+      styles[] = .punctuation_tag_begin, .tag_name, .punctuation_tag_end;
+   }
+   
+   : pattern {
+      regex    \= (<)(>)
+      styles[] = .punctuation_tag_begin, .punctuation_tag_end;
+   }
+     
+   : pattern {
+      regex    \= (<)(/>)
+      styles[] = .punctuation_tag_begin, .punctuation_tag_end;
+   }
+}
+
+function_call : context {
+   : inline_push {
+      regex    \= ($${__IDENT})(\s*)(\()
+      styles[] = .function, .whitespace, .punctuation_group;
+      
+      : pop {
+         regex    \= (\))
+         styles[] = .punctuation_group;
+      }
+      
+      : include "expression";
+      : include "symbol";
+   }
+}
+
+## Statements ##
+
+variable : context {
+   : pattern {
+      regex    \= ($${__LET})(\s+)($${__IDENT})
+      styles[] = .storage, .whitespace, .variable;
+   }
+}
+
+## Entities ##
+
+constant : context {
+   : pattern {
+      regex    \= ($${__CONST})(\s+)($${__IDENT})
+      styles[] = .storage, .whitespace, .constant;
+   }
+}
+
+enum : context {
+   : pattern {
+      regex    \= ($${__ENUM})(\s+)($${__IDENT})
+      styles[] = .storage_enum, .whitespace, .enum;
+   }
+
+   : inline_push {
+      regex       \= (\s+)(\|)(\s*)($${__IDENT})(\()
+      styles[]    = .whitespace, .operator_type, .whitespace, .identifier, .punctuation_parameters_begin;
+      
+      : pop {
+         regex    \= (\))
+         styles[] = .punctuation_parameters_end;
+      }
+      
+      : pattern {
+         regex    \= ($${__IDENT})
+         styles[] = .type;
+      }
+      
+      : include "symbol";
+   }
+   
+   : pattern {
+      regex    \= (\s+)(\|)(\s*)($${__IDENT})
+      styles[] = .whitespace, .operator_type, .whitespace, .identifier;
+   }
+}
+
+function : context {
+   : inline_push {
+      regex          \= ($${__FUNC})(\s+)($${__IDENT})(\s*)(\()
+      styles[]       = .storage_function, .whitespace, .function, .whitespace, .punctuation_parameters_begin;
+     
+      : pop {
+         regex       \= (\))
+         styles[]    = .punctuation_parameters_end;
+      }
+      
+      : pattern {
+         regex       \= ($${__IDENT})(\s*)(=)
+         styles[]    = .parameter, .whitespace, .operator_assignment;
+      }   
+      
+      : pattern {
+         regex       \= ($${__IDENT})(\s*)(:)(\s*)($${__IDENT})
+         styles[]    = .parameter, .whitespace, .operator_type_defn, .whitespace, .type;
+      }
+      
+      : pattern {
+         regex       \= (:)(\s*)($${__IDENT})
+         styles[]    = .operator_type_defn, .whitespace, .type;
+      }
+      
+      : include "expression";
+      : include "symbol";
+   }
+
+   : pattern {
+      regex    \= ($${__FUNC})(\s+)($${__IDENT})
+      styles[] = .storage_function, .whitespace, .function;
+   }
+}
+
+view : context {
+    : inline_push {
+      regex          \= ($${__VIEW})(\s+)($${__IDENT})(\s*)(\()
+      styles[]       = .storage_view, .whitespace, .view, .whitespace, .punctuation_parameters_begin;
+     
+      : pop {
+         regex       \= (\))
+         styles[]    = .punctuation_parameters_end;
+      }
+      
+      : pattern {
+         regex       \= ($${__IDENT})(\s*)(=)
+         styles[]    = .parameter, .whitespace, .operator_assignment;
+      }   
+      
+      : pattern {
+         regex       \= ($${__IDENT})(\s*)(:)(\s*)($${__IDENT})
+         styles[]    = .parameter, .whitespace, .operator_type_defn, .whitespace, .type;
+      }
+      
+      : pattern {
+         regex       \= (:)(\s*)($${__IDENT})
+         styles[]    = .operator_type_defn, .whitespace, .type;
+      }
+      
+      : include "expression";
+      : include "symbol";
+   }
+
+   : pattern {
+      regex    \= ($${__VIEW})(\s+)($${__IDENT})
+      styles[] = .storage_view, .whitespace, .view;
+   }
+}
+
+}
