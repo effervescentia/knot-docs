@@ -19,5 +19,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.0
         with:
           branch: docs
-          folder: docs
+          folder: build
           clean: true
