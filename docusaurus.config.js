@@ -2,8 +2,6 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const path = require('path');
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -19,6 +17,7 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'effervescentia', // Usually your GitHub org/user name.
   projectName: 'knot-docs', // Usually your repo name.
+  deploymentBranch: 'docs',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -67,12 +66,6 @@ const config = {
       }
     ]
   ],
-
-/**
- * <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
- */
   
   plugins: [
     () => ({
@@ -95,7 +88,7 @@ const config = {
       navbar: {
         title: 'Knot',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Knot Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -148,11 +141,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        copyright: `Copyright © ${new Date().getFullYear()} Knot. Built with Docusaurus.`,
       },
     }),
 };
