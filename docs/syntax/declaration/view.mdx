@@ -19,9 +19,9 @@ You can render a view the same way you might render a built-in element such as `
 <TabItem value="knot" label="Knot">
 
 ```knot
-view SimpleView(age: number, name: string) -> <div />;
+view SimpleView(age: integer, name: string) -> <div />;
 
-view AlternateView(name: string, age: number) -> <div />;
+view AlternateView(name: string, age: integer) -> <div />;
 
 const element =
   <>
@@ -36,11 +36,11 @@ const element =
 <TabItem value="tsx" label="TypeScript">
 
 ```tsx
-function SimpleView(props: { age: number; name: string }) {
+function SimpleView({ age, name }: { age: number; name: string }) {
   return <div />;
 }
 
-function AlternateView(props: { name: string; age: number }) {
+function AlternateView({ age, name }: { name: string; age: number }) {
   return <div />;
 }
 
@@ -103,7 +103,15 @@ const element = <PartialView first=1 third=3 />;
 <TabItem value="tsx" label="TypeScript">
 
 ```tsx
-function PartialView(first: integer, second = 10, third: integer) {
+function PartialView({
+  first,
+  second = 10,
+  third,
+}: {
+  first: number;
+  second?: number;
+  third: number;
+}) {
   return <div>{first + second + third}</div>;
 }
 

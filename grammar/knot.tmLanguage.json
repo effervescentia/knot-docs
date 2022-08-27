@@ -79,15 +79,21 @@
     "constant": {
       "patterns": [
         {
-          "match": "(\\bconst\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "match": "(?:(\\bmain\\b)(\\s+))?(\\bconst\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
           "captures": {
             "1": {
-              "name": "storage.type.knot"
+              "name": "keyword.control.main.knot"
             },
             "2": {
               "name": "text.knot"
             },
             "3": {
+              "name": "storage.type.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
               "name": "variable.other.constant.knot"
             }
           }
@@ -113,15 +119,21 @@
     "enum": {
       "patterns": [
         {
-          "match": "(\\benum\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "match": "(?:(\\bmain\\b)(\\s+))?(\\benum\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
           "captures": {
             "1": {
-              "name": "storage.type.enum.knot"
+              "name": "keyword.control.main.knot"
             },
             "2": {
               "name": "text.knot"
             },
             "3": {
+              "name": "storage.type.enum.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
               "name": "entity.name.type.enum.knot"
             }
           }
@@ -212,21 +224,27 @@
     "function": {
       "patterns": [
         {
-          "begin": "(\\bfunc\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
+          "begin": "(?:(\\bmain\\b)(\\s+))?(\\bfunc\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
           "beginCaptures": {
             "1": {
-              "name": "storage.type.function.knot"
+              "name": "keyword.control.main.knot"
             },
             "2": {
               "name": "text.knot"
             },
             "3": {
-              "name": "entity.name.function.knot"
+              "name": "storage.type.function.knot"
             },
             "4": {
               "name": "text.knot"
             },
             "5": {
+              "name": "entity.name.function.knot"
+            },
+            "6": {
+              "name": "text.knot"
+            },
+            "7": {
               "name": "punctuation.definition.parameters.begin.knot"
             }
           },
@@ -243,15 +261,21 @@
           }
         },
         {
-          "match": "(\\bfunc\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "match": "(?:(\\bmain\\b)(\\s+))?(\\bfunc\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
           "captures": {
             "1": {
-              "name": "storage.type.function.knot"
+              "name": "keyword.control.main.knot"
             },
             "2": {
               "name": "text.knot"
             },
             "3": {
+              "name": "storage.type.function.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
               "name": "entity.name.function.knot"
             }
           }
@@ -399,15 +423,18 @@
     "jsx": {
       "patterns": [
         {
-          "begin": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>)",
+          "begin": "(<)(?:(\\b[A-Z][_a-zA-Z\\d]*\\b)|(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b))(>)",
           "beginCaptures": {
             "1": {
               "name": "punctuation.definition.tag.begin.knot"
             },
             "2": {
-              "name": "entity.name.tag.knot"
+              "name": "support.class.component.knot"
             },
             "3": {
+              "name": "entity.name.tag.knot"
+            },
+            "4": {
               "name": "punctuation.definition.tag.end.knot"
             }
           },
@@ -416,26 +443,32 @@
               "include": "#uid_jsx_parent"
             }
           ],
-          "end": "(</)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>)",
+          "end": "(</)(?:(\\b[A-Z][_a-zA-Z\\d]*\\b)|(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b))(>)",
           "endCaptures": {
             "1": {
               "name": "punctuation.definition.tag.begin.knot"
             },
             "2": {
-              "name": "entity.name.tag.knot"
+              "name": "support.class.component.knot"
             },
             "3": {
+              "name": "entity.name.tag.knot"
+            },
+            "4": {
               "name": "punctuation.definition.tag.end.knot"
             }
           }
         },
         {
-          "begin": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "begin": "(<)(?:(\\b[A-Z][_a-zA-Z\\d]*\\b)|(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b))",
           "beginCaptures": {
             "1": {
               "name": "punctuation.definition.tag.begin.knot"
             },
             "2": {
+              "name": "support.class.component.knot"
+            },
+            "3": {
               "name": "entity.name.tag.knot"
             }
           },
@@ -444,26 +477,41 @@
               "include": "#uid_jsx_complex"
             }
           ],
-          "end": "(?:(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>))|(/>)",
+          "end": "(>)(</)(?:(\\b[A-Z][_a-zA-Z\\d]*\\b)|(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b))(>)|(>)|(/>)",
           "endCaptures": {
             "1": {
-              "name": "entity.name.tag.knot"
-            },
-            "2": {
               "name": "punctuation.definition.tag.end.knot"
             },
+            "2": {
+              "name": "punctuation.definition.tag.begin.knot"
+            },
             "3": {
+              "name": "support.class.component.knot"
+            },
+            "4": {
+              "name": "entity.name.tag.knot"
+            },
+            "5": {
+              "name": "punctuation.definition.tag.end.knot"
+            },
+            "6": {
+              "name": "punctuation.definition.tag.end.knot"
+            },
+            "7": {
               "name": "punctuation.definition.tag.end.knot"
             }
           }
         },
         {
-          "begin": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "begin": "(<)(?:(\\b[A-Z][_a-zA-Z\\d]*\\b)|(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b))",
           "beginCaptures": {
             "1": {
               "name": "punctuation.definition.tag.begin.knot"
             },
             "2": {
+              "name": "support.class.component.knot"
+            },
+            "3": {
               "name": "entity.name.tag.knot"
             }
           },
@@ -480,32 +528,38 @@
           }
         },
         {
-          "match": "(<)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(/>|>)",
+          "match": "(<)(?:(\\b[A-Z][_a-zA-Z\\d]*\\b)|(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b))(\\s*)(/>|>)",
           "captures": {
             "1": {
               "name": "punctuation.definition.tag.begin.knot"
             },
             "2": {
-              "name": "entity.name.tag.knot"
+              "name": "support.class.component.knot"
             },
             "3": {
-              "name": "text.knot"
+              "name": "entity.name.tag.knot"
             },
             "4": {
+              "name": "text.knot"
+            },
+            "5": {
               "name": "punctuation.definition.tag.end.knot"
             }
           }
         },
         {
-          "match": "(</)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(>)",
+          "match": "(</)(?:(\\b[A-Z][_a-zA-Z\\d]*\\b)|(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b))(>)",
           "captures": {
             "1": {
               "name": "punctuation.definition.tag.begin.knot"
             },
             "2": {
-              "name": "entity.name.tag.knot"
+              "name": "support.class.component.knot"
             },
             "3": {
+              "name": "entity.name.tag.knot"
+            },
+            "4": {
               "name": "punctuation.definition.tag.end.knot"
             }
           }
@@ -623,6 +677,10 @@
         {
           "match": "(\\bfrom\\b)",
           "name": "keyword.control.from.knot"
+        },
+        {
+          "match": "(\\bmain\\b)",
+          "name": "keyword.control.main.knot"
         }
       ]
     },
@@ -842,21 +900,27 @@
     "view": {
       "patterns": [
         {
-          "begin": "(\\bview\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
+          "begin": "(?:(\\bmain\\b)(\\s+))?(\\bview\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
           "beginCaptures": {
             "1": {
-              "name": "storage.type.view.knot"
+              "name": "keyword.control.main.knot"
             },
             "2": {
               "name": "text.knot"
             },
             "3": {
-              "name": "entity.name.view.knot"
+              "name": "storage.type.view.knot"
             },
             "4": {
               "name": "text.knot"
             },
             "5": {
+              "name": "entity.name.view.knot"
+            },
+            "6": {
+              "name": "text.knot"
+            },
+            "7": {
               "name": "punctuation.definition.parameters.begin.knot"
             }
           },
@@ -873,15 +937,21 @@
           }
         },
         {
-          "match": "(\\bview\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "match": "(?:(\\bmain\\b)(\\s+))?(\\bview\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
           "captures": {
             "1": {
-              "name": "storage.type.view.knot"
+              "name": "keyword.control.main.knot"
             },
             "2": {
               "name": "text.knot"
             },
             "3": {
+              "name": "storage.type.view.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
               "name": "entity.name.view.knot"
             }
           }

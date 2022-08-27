@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # Statements
@@ -21,7 +21,9 @@ func foo -> {
 
 ```
 
-## [Let Binding](let-binding)
+## [Let Binding](statement/let-binding)
+
+If a `let` binding is the last statement in the closure then the [return value is implicitly `nil`](primitive/nil#implicit-return).
 
 ```knot
 func foo -> {

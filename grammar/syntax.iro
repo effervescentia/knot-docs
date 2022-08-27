@@ -21,6 +21,7 @@ __CONST     \= \bconst\b
 __ENUM      \= \benum\b
 __FUNC      \= \bfunc\b
 __VIEW      \= \bview\b
+__MAIN      \= \bmain\b
 
 // literal
 
@@ -38,6 +39,7 @@ __ELEMENT   \= \belement\b
 // identifier
 
 __IDENT     \= \b$${__TOKEN}\b
+__ENTITY     \= \b[A-Z][_a-zA-Z\d]*\b
 __PROP      \= \B[\.#]$${__TOKEN}\b|$${__IDENT}
 
 ########################################
@@ -147,6 +149,10 @@ styles[] {
       color          = red
       textmate_scope = keyword.control.from
    }
+   .keyword_main : style {
+      color          = red
+      textmate_scope = keyword.control.main
+   }
    
    // storage
    
@@ -210,6 +216,10 @@ styles[] {
    .tag_name : style {
       color          = #14ad03
       textmate_scope = entity.name.tag
+   }
+   .component_name : style {
+      color          = #0f754e
+      textmate_scope = support.class.component
    }
    
    // type
@@ -388,6 +398,11 @@ keyword : context {
       regex    \= ($${__FROM})
       styles[] = .keyword_from;
    }
+   
+   : pattern {
+      regex    \= ($${__MAIN})
+      styles[] = .keyword_main;
+   }
 }
 
 ## Storage ##
@@ -538,12 +553,12 @@ jsx_inner : context {
 jsx : context {
    : inline_push {
       uid         = uid_jsx_parent
-      regex       \= (<)($${__IDENT})(>)
-      styles[]    = .punctuation_tag_begin, .tag_name, .punctuation_tag_end;
+      regex       \= (<)(?:($${__ENTITY})|($${__IDENT}))(>)
+      styles[]    = .punctuation_tag_begin, .component_name, .tag_name, .punctuation_tag_end;
       
       : pop {
-         regex    \= (</)($${__IDENT})(>)
-         styles[] = .punctuation_tag_begin, .tag_name, .punctuation_tag_end;
+         regex    \= (</)(?:($${__ENTITY})|($${__IDENT}))(>)
+         styles[] = .punctuation_tag_begin, .component_name, .tag_name, .punctuation_tag_end;
       }
       
       : include "jsx_inner";
@@ -551,12 +566,12 @@ jsx : context {
    
    : inline_push {
       uid            = uid_jsx_complex
-      regex          \= (<)($${__IDENT})
-      styles[]       = .punctuation_tag_begin, .tag_name;
+      regex          \= (<)(?:($${__ENTITY})|($${__IDENT}))
+      styles[]       = .punctuation_tag_begin, .component_name, .tag_name;
       
       : pop {
-         regex       \= (?:($${__IDENT})(>))|(/>)
-         styles[]    = .tag_name, .punctuation_tag_end, .punctuation_tag_end;
+         regex       \= (>)(</)(?:($${__ENTITY})|($${__IDENT}))(>)|(>)|(/>)
+         styles[]    = .punctuation_tag_end, .punctuation_tag_begin, .component_name, .tag_name, .punctuation_tag_end, .punctuation_tag_end, .punctuation_tag_end;
       }
       
       : inline_push {
@@ -576,8 +591,8 @@ jsx : context {
 
    : inline_push {
       uid         = uid_jsx_inline
-      regex       \= (<)($${__IDENT})
-      styles[]    = .punctuation_tag_begin, .tag_name;
+      regex       \= (<)(?:($${__ENTITY})|($${__IDENT}))
+      styles[]    = .punctuation_tag_begin, .component_name, .tag_name;
       
       : pop {
          regex    \= (/>)
@@ -588,13 +603,13 @@ jsx : context {
    }
 
    : pattern {
-      regex    \= (<)($${__IDENT})(\s*)(/>|>)
-      styles[] = .punctuation_tag_begin, .tag_name, .whitespace, .punctuation_tag_end;
+      regex    \= (<)(?:($${__ENTITY})|($${__IDENT}))(\s*)(/>|>)
+      styles[] = .punctuation_tag_begin, .component_name, .tag_name, .whitespace, .punctuation_tag_end;
    }
    
    : pattern {
-      regex    \= (</)($${__IDENT})(>)
-      styles[] = .punctuation_tag_begin, .tag_name, .punctuation_tag_end;
+      regex    \= (</)(?:($${__ENTITY})|($${__IDENT}))(>)
+      styles[] = .punctuation_tag_begin, .component_name, .tag_name, .punctuation_tag_end;
    }
    
    : pattern {
@@ -636,15 +651,15 @@ variable : context {
 
 constant : context {
    : pattern {
-      regex    \= ($${__CONST})(\s+)($${__IDENT})
-      styles[] = .storage, .whitespace, .constant;
+      regex    \= (?:($${__MAIN})(\s+))?($${__CONST})(\s+)($${__IDENT})
+      styles[] = .keyword_main, .whitespace, .storage, .whitespace, .constant;
    }
 }
 
 enum : context {
    : pattern {
-      regex    \= ($${__ENUM})(\s+)($${__IDENT})
-      styles[] = .storage_enum, .whitespace, .enum;
+      regex    \= (?:($${__MAIN})(\s+))?($${__ENUM})(\s+)($${__IDENT})
+      styles[] = .keyword_main, .whitespace, .storage_enum, .whitespace, .enum;
    }
 
    : inline_push {
@@ -672,8 +687,8 @@ enum : context {
 
 function : context {
    : inline_push {
-      regex          \= ($${__FUNC})(\s+)($${__IDENT})(\s*)(\()
-      styles[]       = .storage_function, .whitespace, .function, .whitespace, .punctuation_parameters_begin;
+      regex          \= (?:($${__MAIN})(\s+))?($${__FUNC})(\s+)($${__IDENT})(\s*)(\()
+      styles[]       = .keyword_main, .whitespace, .storage_function, .whitespace, .function, .whitespace, .punctuation_parameters_begin;
      
       : pop {
          regex       \= (\))
@@ -700,15 +715,15 @@ function : context {
    }
 
    : pattern {
-      regex    \= ($${__FUNC})(\s+)($${__IDENT})
-      styles[] = .storage_function, .whitespace, .function;
+      regex    \= (?:($${__MAIN})(\s+))?($${__FUNC})(\s+)($${__IDENT})
+      styles[] = .keyword_main, .whitespace, .storage_function, .whitespace, .function;
    }
 }
 
 view : context {
     : inline_push {
-      regex          \= ($${__VIEW})(\s+)($${__IDENT})(\s*)(\()
-      styles[]       = .storage_view, .whitespace, .view, .whitespace, .punctuation_parameters_begin;
+      regex          \= (?:($${__MAIN})(\s+))?($${__VIEW})(\s+)($${__IDENT})(\s*)(\()
+      styles[]       = .keyword_main, .whitespace, .storage_view, .whitespace, .view, .whitespace, .punctuation_parameters_begin;
      
       : pop {
          regex       \= (\))
@@ -735,8 +750,8 @@ view : context {
    }
 
    : pattern {
-      regex    \= ($${__VIEW})(\s+)($${__IDENT})
-      styles[] = .storage_view, .whitespace, .view;
+      regex    \= (?:($${__MAIN})(\s+))?($${__VIEW})(\s+)($${__IDENT})
+      styles[] = .keyword_main, .whitespace, .storage_view, .whitespace, .view;
    }
 }
 

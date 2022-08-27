@@ -125,13 +125,13 @@
         <array>
           <dict>
             <key>match</key>
-            <string>(\bconst\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <string>(?:(\bmain\b)(\s+))?(\bconst\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.knot</string>
+                <string>keyword.control.main.knot</string>
               </dict>
               <key>2</key>
               <dict>
@@ -139,6 +139,16 @@
                 <string>text.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.knot</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>5</key>
               <dict>
                 <key>name</key>
                 <string>variable.other.constant.knot</string>
@@ -175,13 +185,13 @@
         <array>
           <dict>
             <key>match</key>
-            <string>(\benum\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <string>(?:(\bmain\b)(\s+))?(\benum\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.enum.knot</string>
+                <string>keyword.control.main.knot</string>
               </dict>
               <key>2</key>
               <dict>
@@ -189,6 +199,16 @@
                 <string>text.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.enum.knot</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>5</key>
               <dict>
                 <key>name</key>
                 <string>entity.name.type.enum.knot</string>
@@ -325,13 +345,13 @@
         <array>
           <dict>
             <key>begin</key>
-            <string>(\bfunc\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(\s*)(\()</string>
+            <string>(?:(\bmain\b)(\s+))?(\bfunc\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(\s*)(\()</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.function.knot</string>
+                <string>keyword.control.main.knot</string>
               </dict>
               <key>2</key>
               <dict>
@@ -341,7 +361,7 @@
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.function.knot</string>
+                <string>storage.type.function.knot</string>
               </dict>
               <key>4</key>
               <dict>
@@ -349,6 +369,16 @@
                 <string>text.knot</string>
               </dict>
               <key>5</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.function.knot</string>
+              </dict>
+              <key>6</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>7</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.definition.parameters.begin.knot</string>
@@ -374,13 +404,13 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>(\bfunc\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <string>(?:(\bmain\b)(\s+))?(\bfunc\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.function.knot</string>
+                <string>keyword.control.main.knot</string>
               </dict>
               <key>2</key>
               <dict>
@@ -388,6 +418,16 @@
                 <string>text.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.function.knot</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>5</key>
               <dict>
                 <key>name</key>
                 <string>entity.name.function.knot</string>
@@ -612,7 +652,7 @@
         <array>
           <dict>
             <key>begin</key>
-            <string>(&lt;)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(&gt;)</string>
+            <string>(&lt;)(?:(\b[A-Z][_a-zA-Z\d]*\b)|(\b[_a-zA-Z][_a-zA-Z\d]*\b))(&gt;)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -623,9 +663,14 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.tag.knot</string>
+                <string>support.class.component.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.tag.knot</string>
+              </dict>
+              <key>4</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.definition.tag.end.knot</string>
@@ -639,7 +684,7 @@
               </dict>
             </array>
             <key>end</key>
-            <string>(&lt;/)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(&gt;)</string>
+            <string>(&lt;/)(?:(\b[A-Z][_a-zA-Z\d]*\b)|(\b[_a-zA-Z][_a-zA-Z\d]*\b))(&gt;)</string>
             <key>endCaptures</key>
             <dict>
               <key>1</key>
@@ -650,9 +695,14 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.tag.knot</string>
+                <string>support.class.component.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.tag.knot</string>
+              </dict>
+              <key>4</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.definition.tag.end.knot</string>
@@ -661,7 +711,7 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>(&lt;)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <string>(&lt;)(?:(\b[A-Z][_a-zA-Z\d]*\b)|(\b[_a-zA-Z][_a-zA-Z\d]*\b))</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -670,6 +720,11 @@
                 <string>punctuation.definition.tag.begin.knot</string>
               </dict>
               <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>support.class.component.knot</string>
+              </dict>
+              <key>3</key>
               <dict>
                 <key>name</key>
                 <string>entity.name.tag.knot</string>
@@ -683,20 +738,40 @@
               </dict>
             </array>
             <key>end</key>
-            <string>(?:(\b[_a-zA-Z][_a-zA-Z\d]*\b)(&gt;))|(/&gt;)</string>
+            <string>(&gt;)(&lt;/)(?:(\b[A-Z][_a-zA-Z\d]*\b)|(\b[_a-zA-Z][_a-zA-Z\d]*\b))(&gt;)|(&gt;)|(/&gt;)</string>
             <key>endCaptures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.tag.knot</string>
+                <string>punctuation.definition.tag.end.knot</string>
               </dict>
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.definition.tag.end.knot</string>
+                <string>punctuation.definition.tag.begin.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>support.class.component.knot</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.tag.knot</string>
+              </dict>
+              <key>5</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.tag.end.knot</string>
+              </dict>
+              <key>6</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.tag.end.knot</string>
+              </dict>
+              <key>7</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.definition.tag.end.knot</string>
@@ -705,7 +780,7 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>(&lt;)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <string>(&lt;)(?:(\b[A-Z][_a-zA-Z\d]*\b)|(\b[_a-zA-Z][_a-zA-Z\d]*\b))</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -714,6 +789,11 @@
                 <string>punctuation.definition.tag.begin.knot</string>
               </dict>
               <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>support.class.component.knot</string>
+              </dict>
+              <key>3</key>
               <dict>
                 <key>name</key>
                 <string>entity.name.tag.knot</string>
@@ -739,7 +819,7 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>(&lt;)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(\s*)(/&gt;|&gt;)</string>
+            <string>(&lt;)(?:(\b[A-Z][_a-zA-Z\d]*\b)|(\b[_a-zA-Z][_a-zA-Z\d]*\b))(\s*)(/&gt;|&gt;)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -750,14 +830,19 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.tag.knot</string>
+                <string>support.class.component.knot</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>text.knot</string>
+                <string>entity.name.tag.knot</string>
               </dict>
               <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>5</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.definition.tag.end.knot</string>
@@ -766,7 +851,7 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>(&lt;/)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(&gt;)</string>
+            <string>(&lt;/)(?:(\b[A-Z][_a-zA-Z\d]*\b)|(\b[_a-zA-Z][_a-zA-Z\d]*\b))(&gt;)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -777,9 +862,14 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.tag.knot</string>
+                <string>support.class.component.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.tag.knot</string>
+              </dict>
+              <key>4</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.definition.tag.end.knot</string>
@@ -957,6 +1047,12 @@
             <string>(\bfrom\b)</string>
             <key>name</key>
             <string>keyword.control.from.knot</string>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>(\bmain\b)</string>
+            <key>name</key>
+            <string>keyword.control.main.knot</string>
           </dict>
         </array>
       </dict>
@@ -1285,13 +1381,13 @@
         <array>
           <dict>
             <key>begin</key>
-            <string>(\bview\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(\s*)(\()</string>
+            <string>(?:(\bmain\b)(\s+))?(\bview\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)(\s*)(\()</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.view.knot</string>
+                <string>keyword.control.main.knot</string>
               </dict>
               <key>2</key>
               <dict>
@@ -1301,7 +1397,7 @@
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.view.knot</string>
+                <string>storage.type.view.knot</string>
               </dict>
               <key>4</key>
               <dict>
@@ -1309,6 +1405,16 @@
                 <string>text.knot</string>
               </dict>
               <key>5</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.view.knot</string>
+              </dict>
+              <key>6</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>7</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.definition.parameters.begin.knot</string>
@@ -1334,13 +1440,13 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>(\bview\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <string>(?:(\bmain\b)(\s+))?(\bview\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.view.knot</string>
+                <string>keyword.control.main.knot</string>
               </dict>
               <key>2</key>
               <dict>
@@ -1348,6 +1454,16 @@
                 <string>text.knot</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.view.knot</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>5</key>
               <dict>
                 <key>name</key>
                 <string>entity.name.view.knot</string>
