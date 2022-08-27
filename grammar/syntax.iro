@@ -213,6 +213,10 @@ styles[] {
       color          = #5ffc6f
       textmate_scope = variable.other.constant
    }
+   .alias_name : style {
+      color          = #5ffc6f
+      textmate_scope = variable.other.constant.alias
+   }
    .tag_name : style {
       color          = #14ad03
       textmate_scope = entity.name.tag
@@ -272,6 +276,7 @@ styles[] {
 contexts[] {
 
 main : context {
+   : include "import";
    : include "declaration";
    : include "storage";
    : include "keyword";
@@ -644,6 +649,32 @@ variable : context {
    : pattern {
       regex    \= ($${__LET})(\s+)($${__IDENT})
       styles[] = .storage, .whitespace, .variable;
+   }
+}
+
+## Imports ##
+
+import : context {
+   : inline_push {
+      regex       \= ($${__IMPORT})(\s*)({)
+      styles[]    = .keyword_import, .whitespace, .punctuation_closure;
+      
+      : pop {
+         regex    \= (})(\s*)($${__FROM})|(})
+         styles[] = .punctuation_closure, .whitespace, .keyword_from, .punctuation_closure;
+      }
+      
+      : pattern {
+         regex    \= ($${__IDENT})(\s+)($${__AS})(\s+)($${__IDENT})
+         styles[] = .identifier, .whitespace, .keyword_as, .whitespace, .alias_name;
+      }
+      
+      : pattern {
+         regex    \= ($${__IDENT})
+         styles[] = .alias_name;
+      }
+      
+      : include "punctuation";
    }
 }
 

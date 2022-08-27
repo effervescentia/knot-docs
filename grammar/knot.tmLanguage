@@ -28,6 +28,10 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#import</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#declaration</string>
           </dict>
           <dict>
@@ -643,6 +647,114 @@
             <string>(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
             <key>name</key>
             <string>variable.other.constant.knot</string>
+          </dict>
+        </array>
+      </dict>
+      <key>import</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>(\bimport\b)(\s*)({)</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.control.import.knot</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.block.knot</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#import__1</string>
+              </dict>
+            </array>
+            <key>end</key>
+            <string>(})(\s*)(\bfrom\b)|(})</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.block.knot</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.control.from.knot</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.block.knot</string>
+              </dict>
+            </dict>
+          </dict>
+        </array>
+      </dict>
+      <key>import__1</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>(\b[_a-zA-Z][_a-zA-Z\d]*\b)(\s+)(\bas\b)(\s+)(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>variable.other.constant.knot</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.control.as.knot</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>text.knot</string>
+              </dict>
+              <key>5</key>
+              <dict>
+                <key>name</key>
+                <string>variable.other.constant.alias.knot</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>(\b[_a-zA-Z][_a-zA-Z\d]*\b)</string>
+            <key>name</key>
+            <string>variable.other.constant.alias.knot</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation</string>
           </dict>
         </array>
       </dict>

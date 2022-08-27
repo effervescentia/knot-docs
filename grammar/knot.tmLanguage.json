@@ -12,6 +12,9 @@
     "main": {
       "patterns": [
         {
+          "include": "#import"
+        },
+        {
           "include": "#declaration"
         },
         {
@@ -417,6 +420,75 @@
         {
           "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
           "name": "variable.other.constant.knot"
+        }
+      ]
+    },
+    "import": {
+      "patterns": [
+        {
+          "begin": "(\\bimport\\b)(\\s*)({)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.import.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "punctuation.definition.block.knot"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#import__1"
+            }
+          ],
+          "end": "(})(\\s*)(\\bfrom\\b)|(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.block.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "keyword.control.from.knot"
+            },
+            "4": {
+              "name": "punctuation.definition.block.knot"
+            }
+          }
+        }
+      ]
+    },
+    "import__1": {
+      "patterns": [
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s+)(\\bas\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
+            "1": {
+              "name": "variable.other.constant.knot"
+            },
+            "2": {
+              "name": "text.knot"
+            },
+            "3": {
+              "name": "keyword.control.as.knot"
+            },
+            "4": {
+              "name": "text.knot"
+            },
+            "5": {
+              "name": "variable.other.constant.alias.knot"
+            }
+          }
+        },
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "name": "variable.other.constant.alias.knot"
+        },
+        {
+          "include": "#punctuation"
         }
       ]
     },
