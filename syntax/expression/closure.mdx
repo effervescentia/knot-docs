@@ -1,0 +1,45 @@
+---
+sidebar_position: 3
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Closures
+
+If you need more complex logic to initialize your variables you might want to reach for a closure expression.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const result = {
+  let lhs = 90;
+  let rhs = {
+    let initial = 4;
+
+    123 - initial;
+  };
+
+  lhs * 10 > rhs;
+};
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const result = (function () {
+  let lhs = 90;
+  let rhs = (function () {
+    let initial = 4;
+
+    return 123 - initial;
+  })();
+
+  return lhs * 10 > rhs;
+})();
+```
+
+</TabItem>
+</Tabs>

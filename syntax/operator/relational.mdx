@@ -1,0 +1,139 @@
+---
+title: Relational
+sidebar_position: 3
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Relational Operators
+
+These operations are used to compare numeric ([integer](../primitive/number#integer) and [float](../primitive/number#float)) values.
+
+:::info
+These operators can compare values with asymmetric types, meaning that an `integer` can be compared directly to a `float`.
+:::
+
+## Less Than or Equal (`<=`)
+
+This operation evaluates to `true` if the left-hand value is less than or equal to the right-hand value and `false` otherwise.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const foo = 5;
+const bar = 2;
+
+foo <= 10.5 == true;
+foo <= bar == false;
+foo <= 5 == true;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const foo = 5;
+const bar = 2;
+
+foo <= 10.5 === true;
+foo <= bar === false;
+foo <= 5 === true;
+```
+
+</TabItem>
+</Tabs>
+
+## Less Than (`<`)
+
+This operation evaluates to `true` if the left-hand value is less than or equal to the right-hand value and `false` otherwise.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const foo = 5;
+const bar = 2;
+
+foo < 10.5 == true;
+foo < bar == false;
+foo < 5 == false;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const foo = 5;
+const bar = 2;
+
+foo < 10.5 === true;
+foo < bar === false;
+foo < 5 === false;
+```
+
+</TabItem>
+</Tabs>
+
+## Greater Than or Equal (`>=`)
+
+This operation evaluates to `true` if the left-hand value is greater than or equal to the right-hand value and `false` otherwise.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const foo = 5;
+const bar = 2;
+
+foo >= 10.5 == false;
+foo >= bar == true;
+foo >= 5 == true;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const foo = 5;
+const bar = 2;
+
+foo >= 10.5 === false;
+foo >= bar === true;
+foo >= 5 === true;
+```
+
+</TabItem>
+</Tabs>
+
+## Greater Than (`>`)
+
+This operation evaluates to `true` if the left-hand value is greater than the right-hand value and `false` otherwise.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const foo = 5;
+const bar = 2;
+
+foo > 10.5 == false;
+foo > bar == true;
+foo > 5 == false;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const foo = 5;
+const bar = 2;
+
+foo > 10.5 === false;
+foo > bar === true;
+foo > 5 === false;
+```
+
+</TabItem>
+</Tabs>

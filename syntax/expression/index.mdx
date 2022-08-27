@@ -1,0 +1,51 @@
+---
+sidebar_position: 6
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Expressions
+
+In addition to the basic [primitives](../primitive) this language also has some additional expression syntax.
+
+## [Identifiers](identifier)
+
+```knot
+const foo = 10;
+
+const result = foo + foo * foo / foo;
+```
+
+## [Group](group)
+
+```knot
+const result = 5 * (5 - 10);
+```
+
+## [Closure](closure)
+
+```knot
+const result = {
+  let foo = 10 - 3;
+  let bar = 4 * 7;
+
+  foo > bar;
+};
+```
+
+## [Property Access](property-access)
+
+```knot
+import { library } from "@/library";
+
+const book = library.book;
+```
+
+## [Function Call](function-call)
+
+```knot
+func run -> {};
+
+const result = run();
+```

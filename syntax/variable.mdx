@@ -1,0 +1,66 @@
+---
+sidebar_position: 4
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Variables
+
+Reference data by storing it in a variable; it's the way of the future!
+
+:::info
+Variables in Knot are immutable except for within the scope of state entities (coming soon!).
+:::
+
+## [Constants](declaration/constant)
+
+Constants are statically declared within a module and can be referenced within that module or outside
+of it by way of an [import](module/import-export).
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const MY_CONST = "my const";
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const MY_CONST = "my const";
+```
+
+</TabItem>
+</Tabs>
+
+## [Let Bindings](statement/let-binding)
+
+Variables can be declared within any closure (such as in a [view](declaration/view) or a [func](declaration/function))
+and referenced by other expressions within the same closure.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+func closureExample(value: integer) -> {
+  let result = value + 6;
+
+  result;
+}
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+function closureExample(value: number) {
+  let result = value + 6;
+
+  return result;
+}
+```
+
+</TabItem>
+</Tabs>

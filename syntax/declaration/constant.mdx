@@ -1,0 +1,42 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Constants
+
+Constants are variables that cannot be mutated after their declaration, they are scoped to the module level
+and they can hold values of any type.
+
+:::info
+Variables in Knot are immutable except for within the scope of state entities (coming soon!).
+:::
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const empty = nil;
+const boolean = true;
+const integer = 1234;
+const float = 56.78;
+const string = "this is a string";
+const element = <div />;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const empty = undefined;
+const boolean = true;
+const integer = 1234;
+const float = 56.78;
+const string = "this is a string";
+const element = <div />;
+```
+
+</TabItem>
+</Tabs>

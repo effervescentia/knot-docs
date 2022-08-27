@@ -1,0 +1,30 @@
+---
+sidebar_position: 9
+---
+
+# Declarations
+
+All declarations in a [module](../module) are available for [import](../module/import-export) from within other modules.
+
+## [Constants](constant)
+
+```knot
+const TIMEOUT = 100;
+const ERR_MESSAGE = "failed to connect";
+const DEBUG = false;
+```
+
+## [Function](function)
+
+```knot
+func add(lhs: integer, rhs: integer) -> lhs + rhs;
+```
+
+## [View](view)
+
+```knot
+view Header ->
+  <header>
+    <h1>Welcome!</h1>
+  </header>;
+```
