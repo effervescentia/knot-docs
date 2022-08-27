@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Knot Blog</title>
-        <link>https://effervescentia.github.io/blog</link>
+        <link>https://effervescentia.github.io/knot-docs/blog</link>
         <description>Knot Blog</description>
         <lastBuildDate>Fri, 26 Aug 2022 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,11 +10,11 @@
         <language>en</language>
         <item>
             <title><![CDATA[Welcome]]></title>
-            <link>https://effervescentia.github.io/blog/welcome</link>
+            <link>https://effervescentia.github.io/knot-docs/blog/welcome</link>
             <guid>welcome</guid>
             <pubDate>Fri, 26 Aug 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Knot is a functional programming language that is designed to be used to build cross-platform native applications from a single codebase.]]></description>
-            <content:encoded><![CDATA[<p>Knot is a functional programming language that is designed to be used to build cross-platform native applications from a single codebase.</p><p><img loading="lazy" alt="Knot Snippet" src="/assets/images/code-5494c7dec7ce631da7d7b14b82b512bd.png" width="1050" height="508" class="img_ev3q"></p>]]></content:encoded>
+            <content:encoded><![CDATA[<p>Knot is a functional programming language that is designed to be used to build cross-platform native applications from a single codebase.</p><p><img loading="lazy" alt="Knot Snippet" src="/knot-docs/assets/images/code-5494c7dec7ce631da7d7b14b82b512bd.png" width="1050" height="508" class="img_ev3q"></p>]]></content:encoded>
             <category>knot</category>
         </item>
     </channel>

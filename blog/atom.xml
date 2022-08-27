@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://effervescentia.github.io/blog</id>
+    <id>https://effervescentia.github.io/knot-docs/blog</id>
     <title>Knot Blog</title>
     <updated>2022-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://effervescentia.github.io/blog"/>
+    <link rel="alternate" href="https://effervescentia.github.io/knot-docs/blog"/>
     <subtitle>Knot Blog</subtitle>
-    <icon>https://effervescentia.github.io/img/favicon.ico</icon>
+    <icon>https://effervescentia.github.io/knot-docs/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>welcome</id>
-        <link href="https://effervescentia.github.io/blog/welcome"/>
+        <link href="https://effervescentia.github.io/knot-docs/blog/welcome"/>
         <updated>2022-08-26T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Knot is a functional programming language that is designed to be used to build cross-platform native applications from a single codebase.]]></summary>
-        <content type="html"><![CDATA[<p>Knot is a functional programming language that is designed to be used to build cross-platform native applications from a single codebase.</p><p><img loading="lazy" alt="Knot Snippet" src="/assets/images/code-5494c7dec7ce631da7d7b14b82b512bd.png" width="1050" height="508" class="img_ev3q"></p>]]></content>
+        <content type="html"><![CDATA[<p>Knot is a functional programming language that is designed to be used to build cross-platform native applications from a single codebase.</p><p><img loading="lazy" alt="Knot Snippet" src="/knot-docs/assets/images/code-5494c7dec7ce631da7d7b14b82b512bd.png" width="1050" height="508" class="img_ev3q"></p>]]></content>
         <author>
             <name>Ben Teichman</name>
             <uri>https://github.com/effervescentia</uri>

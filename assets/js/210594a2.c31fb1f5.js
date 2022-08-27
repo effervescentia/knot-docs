@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkknot_docs=self.webpackChunkknot_docs||[]).push([[3965],{8818:o=>{o.exports=JSON.parse('[{"label":"knot","permalink":"/knot-docs/blog/tags/knot","count":1}]')}}]);
