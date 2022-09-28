@@ -61,7 +61,8 @@ const config = {
             scopeName: 'source.knot',
             path: path.join(__dirname, 'grammar/knot.tmLanguage.json'),
           },
-          "tsx"
+          "tsx",
+          "css"
         ]
       }
     ]

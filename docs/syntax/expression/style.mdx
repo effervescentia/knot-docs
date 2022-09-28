@@ -1,0 +1,71 @@
+---
+sidebar_position: 7
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Styles
+
+Styles can be used to decorate [elements](../element) which in turn influences how they are rendered.
+In a browser environment this is equivalent to styling elements using CSS.
+
+## Definition
+
+```knot
+const buttonStyle = style { };
+```
+
+## Classes
+
+Most styling will be done with classes.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+style CoreStyle {
+  .header {
+    color: $red;
+  }
+}
+```
+
+</TabItem>
+<TabItem value="css" label="CSS">
+
+```css
+.header {
+  color: red;
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Identifiers
+
+You can also use identifiers for styling.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+style CoreStyle {
+  #hero {
+    color: $red;
+  }
+}
+```
+
+</TabItem>
+<TabItem value="css" label="CSS">
+
+```css
+#hero {
+  color: red;
+}
+```
+
+</TabItem>
+</Tabs>

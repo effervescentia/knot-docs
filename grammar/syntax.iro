@@ -21,6 +21,7 @@ __CONST     \= \bconst\b
 __ENUM      \= \benum\b
 __FUNC      \= \bfunc\b
 __VIEW      \= \bview\b
+__STYLE     \= \bstyle\b
 __MAIN      \= \bmain\b
 
 // literal
@@ -39,8 +40,9 @@ __ELEMENT   \= \belement\b
 // identifier
 
 __IDENT     \= \b$${__TOKEN}\b
-__ENTITY     \= \b[A-Z][_a-zA-Z\d]*\b
+__ENTITY    \= \b[A-Z][_a-zA-Z\d]*\b
 __PROP      \= \B[\.#]$${__TOKEN}\b|$${__IDENT}
+__MIXIN     \= \B\$$${__TOKEN}\b
 
 ########################################
 ## Styles
@@ -172,6 +174,10 @@ styles[] {
       color          = red
       textmate_scope = storage.type.view
    }
+   .storage_style : style {
+      color          = red
+      textmate_scope = storage.type.style
+   }
    .storage_arrow : style {
       color          = red
       textmate_scope = storage.type.arrow
@@ -213,6 +219,10 @@ styles[] {
       color          = #5ffc6f
       textmate_scope = variable.other.constant
    }
+   .mixin : style {
+      color          = #5ffc6f
+      textmate_scope = variable.other.mixin
+   }
    .alias_name : style {
       color          = #5ffc6f
       textmate_scope = variable.other.constant.alias
@@ -243,6 +253,10 @@ styles[] {
       color          = cyan
       textmate_scope = entity.name.type.enum
    }
+   .style : style {
+      color          = cyan
+      textmate_scope = entity.name.style
+   }
    .view : style {
       color          = cyan
       textmate_scope = entity.name.view
@@ -267,6 +281,14 @@ styles[] {
       color          = #6bb2ff
       textmate_scope = entity.other.attribute-name
    }
+   .style_ruleset : style {
+      color          = #6bb2ff
+      textmate_scope = entity.other.attribute-name.ruleset
+   }
+   .style_rule : style {
+      color          = #6bb2ff
+      textmate_scope = support.type.property-name
+   }
 }
 
 ########################################
@@ -289,6 +311,7 @@ declaration : context {
    : include "enum";
    : include "function";
    : include "view";
+   : include "style";
 }
 
 expression : context {
@@ -355,7 +378,7 @@ punctuation : context {
 ## Operator ##
 
 operator : context {
-    : pattern {
+   : pattern {
       regex    \= (\|)
       styles[] = .operator_type;
    }
@@ -472,6 +495,7 @@ number : context {
 
 string : context {
    : inline_push {
+      uid            = uid_string
       regex          \= (")
       styles[]       = .punctuation_string_begin;
       default_style  = .quoted_string
@@ -502,6 +526,7 @@ group : context {
 
 closure : context {
    : inline_push {
+      uid         = uid_closure
       regex       \= ({)
       styles[]    = .punctuation_closure;
       
@@ -517,6 +542,10 @@ closure : context {
 }
 
 identifier : context {
+   : pattern {
+      regex    \= ($${__MIXIN})
+      styles[] = .mixin;
+   }
    : pattern {
       regex    \= ($${__IDENT})
       styles[] = .identifier;
@@ -580,6 +609,7 @@ jsx : context {
       }
       
       : inline_push {
+         uid         = uid_jsx_inner
          regex       \= (>)
          styles[]    = .punctuation_tag_end;
          
@@ -630,6 +660,7 @@ jsx : context {
 
 function_call : context {
    : inline_push {
+      uid      = uid_function_call
       regex    \= ($${__IDENT})(\s*)(\()
       styles[] = .function, .whitespace, .punctuation_group;
       
@@ -656,6 +687,7 @@ variable : context {
 
 import : context {
    : inline_push {
+      uid         = uid_import
       regex       \= ($${__IMPORT})(\s*)({)
       styles[]    = .keyword_import, .whitespace, .punctuation_closure;
       
@@ -694,6 +726,7 @@ enum : context {
    }
 
    : inline_push {
+      uid         = uid_enum_variant_parameterized
       regex       \= (\s+)(\|)(\s*)($${__IDENT})(\()
       styles[]    = .whitespace, .operator_type, .whitespace, .identifier, .punctuation_parameters_begin;
       
@@ -711,6 +744,7 @@ enum : context {
    }
    
    : pattern {
+      uid      = uid_enum_variant
       regex    \= (\s+)(\|)(\s*)($${__IDENT})
       styles[] = .whitespace, .operator_type, .whitespace, .identifier;
    }
@@ -718,6 +752,7 @@ enum : context {
 
 function : context {
    : inline_push {
+      uid            = uid_function_signature_parameterized
       regex          \= (?:($${__MAIN})(\s+))?($${__FUNC})(\s+)($${__IDENT})(\s*)(\()
       styles[]       = .keyword_main, .whitespace, .storage_function, .whitespace, .function, .whitespace, .punctuation_parameters_begin;
      
@@ -746,6 +781,7 @@ function : context {
    }
 
    : pattern {
+      uid      = uid_function_signature
       regex    \= (?:($${__MAIN})(\s+))?($${__FUNC})(\s+)($${__IDENT})
       styles[] = .keyword_main, .whitespace, .storage_function, .whitespace, .function;
    }
@@ -753,6 +789,7 @@ function : context {
 
 view : context {
     : inline_push {
+      uid            = uid_view_signature_parameterized
       regex          \= (?:($${__MAIN})(\s+))?($${__VIEW})(\s+)($${__IDENT})(\s*)(\()
       styles[]       = .keyword_main, .whitespace, .storage_view, .whitespace, .view, .whitespace, .punctuation_parameters_begin;
      
@@ -781,8 +818,76 @@ view : context {
    }
 
    : pattern {
+      uid            = uid_view_signature
       regex    \= (?:($${__MAIN})(\s+))?($${__VIEW})(\s+)($${__IDENT})
       styles[] = .keyword_main, .whitespace, .storage_view, .whitespace, .view;
+   }
+}
+
+style : context {
+   : inline_push {
+      uid            = uid_style_signature_parameterized
+      regex          \= (?:($${__MAIN})(\s+))?($${__STYLE})(\s+)($${__IDENT})(\s*)(\()
+      styles[]       = .keyword_main, .whitespace, .storage_style, .whitespace, .style, .whitespace, .punctuation_parameters_begin;
+     
+      : pop {
+         regex       \= (\))
+         styles[]    = .punctuation_parameters_end;
+      }
+      
+      : pattern {
+         regex       \= ($${__IDENT})(\s*)(=)
+         styles[]    = .parameter, .whitespace, .operator_assignment;
+      }   
+      
+      : pattern {
+         regex       \= ($${__IDENT})(\s*)(:)(\s*)($${__IDENT})
+         styles[]    = .parameter, .whitespace, .operator_type_defn, .whitespace, .type;
+      }
+      
+      : pattern {
+         regex       \= (:)(\s*)($${__IDENT})
+         styles[]    = .operator_type_defn, .whitespace, .type;
+      }
+      
+      : include "expression";
+      : include "symbol";
+   }
+
+   : pattern {
+      uid      = uid_style_signature
+      regex    \= (?:($${__MAIN})(\s+))?($${__STYLE})(\s+)($${__IDENT})
+      styles[] = .keyword_main, .whitespace, .storage_style, .whitespace, .style;
+   }
+   
+   : inline_push {
+      uid            = uid_style_body
+      regex          \= ({)
+      styles[]       = .punctuation_closure;
+      
+      : pop {
+         regex       \= (})
+         styles[]    = .punctuation_closure;
+      }
+      
+      : inline_push {
+         uid         = uid_style_ruleset
+         regex       \= ($${__PROP})(\s*)({)
+         styles[]    = .style_ruleset, .whitespace, .punctuation_closure;
+         
+         : pop {
+            regex    \= (})
+            styles[] = .punctuation_closure;
+         }
+         
+         : pattern {
+            regex    \= ($${__IDENT})(:)
+            styles[] = .style_rule, .punctuation_key_value;
+         }
+         
+         : include "expression";
+         : include "symbol";
+      }
    }
 }
 
