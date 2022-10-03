@@ -1,5 +1,7 @@
 {
-  "fileTypes": ["kn"],
+  "fileTypes": [
+    "kn"
+  ],
   "name": "knot",
   "patterns": [
     {
@@ -103,9 +105,6 @@
         },
         {
           "include": "#view"
-        },
-        {
-          "include": "#style"
         }
       ]
     },
@@ -196,10 +195,16 @@
           "include": "#function_call"
         },
         {
+          "include": "#style_expression"
+        },
+        {
           "include": "#identifier"
         },
         {
           "include": "#jsx"
+        },
+        {
+          "include": "#style_binding"
         }
       ]
     },
@@ -547,7 +552,7 @@
     "jsx_attribute": {
       "patterns": [
         {
-          "match": "(\\s+)(\\B[\\.\\x{0023}][_a-zA-Z][_a-zA-Z\\d]*\\b|\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(=)",
+          "match": "(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(=)",
           "captures": {
             "1": {
               "name": "text.knot"
@@ -564,7 +569,7 @@
           "include": "#primitive"
         },
         {
-          "match": "(\\s+)(\\B[\\.\\x{0023}][_a-zA-Z][_a-zA-Z\\d]*\\b|\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(=)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "match": "(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(=)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
           "captures": {
             "1": {
               "name": "text.knot"
@@ -581,7 +586,7 @@
           }
         },
         {
-          "match": "(\\s+)(\\B[\\.\\x{0023}][_a-zA-Z][_a-zA-Z\\d]*\\b|\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "match": "(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
           "captures": {
             "1": {
               "name": "text.knot"
@@ -772,31 +777,27 @@
         }
       ]
     },
-    "style": {
+    "style_binding": {
       "patterns": [
         {
-          "begin": "(?:(\\bmain\\b)(\\s+))?(\\bstyle\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(\\()",
-          "beginCaptures": {
+          "match": "(::)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
+          "captures": {
             "1": {
-              "name": "keyword.control.main.knot"
+              "name": "punctuation.style.bind.knot"
             },
             "2": {
-              "name": "text.knot"
+              "name": "variable.other.constant.knot"
+            }
+          }
+        },
+        {
+          "begin": "(::)(\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.style.bind.knot"
             },
-            "3": {
-              "name": "storage.type.style.knot"
-            },
-            "4": {
-              "name": "text.knot"
-            },
-            "5": {
-              "name": "entity.name.style.knot"
-            },
-            "6": {
-              "name": "text.knot"
-            },
-            "7": {
-              "name": "punctuation.definition.parameters.begin.knot"
+            "2": {
+              "name": "punctuation.definition.block.knot"
             }
           },
           "patterns": [
@@ -804,51 +805,62 @@
               "include": "#uid_style_signature_parameterized"
             }
           ],
-          "end": "(\\))",
+          "end": "(\\})",
           "endCaptures": {
             "1": {
-              "name": "punctuation.definition.parameters.end.knot"
+              "name": "punctuation.definition.block.knot"
             }
           }
-        },
+        }
+      ]
+    },
+    "style_expression": {
+      "patterns": [
         {
-          "match": "(?:(\\bmain\\b)(\\s+))?(\\bstyle\\b)(\\s+)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
-          "captures": {
+          "begin": "(\\bstyle\\b)(\\s*)(\\{)",
+          "beginCaptures": {
             "1": {
-              "name": "keyword.control.main.knot"
+              "name": "storage.type.style.knot"
             },
             "2": {
               "name": "text.knot"
             },
             "3": {
-              "name": "storage.type.style.knot"
-            },
-            "4": {
-              "name": "text.knot"
-            },
-            "5": {
-              "name": "entity.name.style.knot"
-            }
-          }
-        },
-        {
-          "begin": "({)",
-          "beginCaptures": {
-            "1": {
               "name": "punctuation.definition.block.knot"
             }
           },
           "patterns": [
             {
-              "include": "#uid_style_body"
+              "include": "#uid_style_signature_parameterized"
             }
           ],
-          "end": "(})",
+          "end": "(\\})",
           "endCaptures": {
             "1": {
               "name": "punctuation.definition.block.knot"
             }
           }
+        }
+      ]
+    },
+    "style_inner": {
+      "patterns": [
+        {
+          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(:)",
+          "captures": {
+            "1": {
+              "name": "support.type.property-name.knot"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.knot"
+            }
+          }
+        },
+        {
+          "include": "#expression"
+        },
+        {
+          "include": "#symbol"
         }
       ]
     },
@@ -1010,12 +1022,18 @@
           }
         },
         {
+          "include": "#style_binding"
+        },
+        {
           "include": "#jsx_attribute"
         }
       ]
     },
     "uid_jsx_inline": {
       "patterns": [
+        {
+          "include": "#style_binding"
+        },
         {
           "include": "#jsx_attribute"
         }
@@ -1038,111 +1056,10 @@
     "uid_string": {
       "patterns": []
     },
-    "uid_style_body": {
-      "patterns": [
-        {
-          "begin": "(\\B[\\.\\x{0023}][_a-zA-Z][_a-zA-Z\\d]*\\b|\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)({)",
-          "beginCaptures": {
-            "1": {
-              "name": "entity.other.attribute-name.ruleset.knot"
-            },
-            "2": {
-              "name": "text.knot"
-            },
-            "3": {
-              "name": "punctuation.definition.block.knot"
-            }
-          },
-          "patterns": [
-            {
-              "include": "#uid_style_ruleset"
-            }
-          ],
-          "end": "(})",
-          "endCaptures": {
-            "1": {
-              "name": "punctuation.definition.block.knot"
-            }
-          }
-        }
-      ]
-    },
-    "uid_style_ruleset": {
-      "patterns": [
-        {
-          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(:)",
-          "captures": {
-            "1": {
-              "name": "support.type.property-name.knot"
-            },
-            "2": {
-              "name": "punctuation.separator.key-value.knot"
-            }
-          }
-        },
-        {
-          "include": "#expression"
-        },
-        {
-          "include": "#symbol"
-        }
-      ]
-    },
     "uid_style_signature_parameterized": {
       "patterns": [
         {
-          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(=)",
-          "captures": {
-            "1": {
-              "name": "variable.parameter.knot"
-            },
-            "2": {
-              "name": "text.knot"
-            },
-            "3": {
-              "name": "keyword.operator.assignment.knot"
-            }
-          }
-        },
-        {
-          "match": "(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)(\\s*)(:)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
-          "captures": {
-            "1": {
-              "name": "variable.parameter.knot"
-            },
-            "2": {
-              "name": "text.knot"
-            },
-            "3": {
-              "name": "keyword.operator.type.annotation.knot"
-            },
-            "4": {
-              "name": "text.knot"
-            },
-            "5": {
-              "name": "support.type.knot"
-            }
-          }
-        },
-        {
-          "match": "(:)(\\s*)(\\b[_a-zA-Z][_a-zA-Z\\d]*\\b)",
-          "captures": {
-            "1": {
-              "name": "keyword.operator.type.annotation.knot"
-            },
-            "2": {
-              "name": "text.knot"
-            },
-            "3": {
-              "name": "support.type.knot"
-            }
-          }
-        },
-        {
-          "include": "#expression"
-        },
-        {
-          "include": "#symbol"
+          "include": "#style_inner"
         }
       ]
     },

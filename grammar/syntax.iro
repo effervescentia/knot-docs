@@ -41,7 +41,6 @@ __ELEMENT   \= \belement\b
 
 __IDENT     \= \b$${__TOKEN}\b
 __ENTITY    \= \b[A-Z][_a-zA-Z\d]*\b
-__PROP      \= \B[\.#]$${__TOKEN}\b|$${__IDENT}
 __MIXIN     \= \B\$$${__TOKEN}\b
 
 ########################################
@@ -104,6 +103,10 @@ styles[] {
    .punctuation_tag_end : style {
       color          = grey
       textmate_scope = punctuation.definition.tag.end
+   }
+   .punctuation_style_bind : style {
+      color          = grey
+      textmate_scope = punctuation.style.bind
    }
    
    // operator
@@ -253,10 +256,6 @@ styles[] {
       color          = cyan
       textmate_scope = entity.name.type.enum
    }
-   .style : style {
-      color          = cyan
-      textmate_scope = entity.name.style
-   }
    .view : style {
       color          = cyan
       textmate_scope = entity.name.view
@@ -280,10 +279,6 @@ styles[] {
    .attribute : style {
       color          = #6bb2ff
       textmate_scope = entity.other.attribute-name
-   }
-   .style_ruleset : style {
-      color          = #6bb2ff
-      textmate_scope = entity.other.attribute-name.ruleset
    }
    .style_rule : style {
       color          = #6bb2ff
@@ -311,7 +306,6 @@ declaration : context {
    : include "enum";
    : include "function";
    : include "view";
-   : include "style";
 }
 
 expression : context {
@@ -319,8 +313,10 @@ expression : context {
    : include "group";
    : include "closure";
    : include "function_call";
+   : include "style_expression";
    : include "identifier";
    : include "jsx";
+   : include "style_binding";
 }
 
 primitive : context {
@@ -552,21 +548,66 @@ identifier : context {
    }
 }
 
+style_inner : context {
+   : pattern {
+      regex    \= ($${__IDENT})(:)
+      styles[] = .style_rule, .punctuation_key_value;
+   }
+   
+   : include "expression";
+   : include "symbol";
+}
+
+style_expression : context {
+   : inline_push {
+      uid            = uid_style_signature_parameterized
+      regex          \= ($${__STYLE})(\s*)(\{)
+      styles[]       = .storage_style, .whitespace, .punctuation_closure;
+     
+      : pop {
+         regex       \= (\})
+         styles[]    = .punctuation_closure;
+      }
+      
+      : include "style_inner";
+   }
+}
+
+style_binding : context {
+   : pattern {
+      regex    \= (::)($${__IDENT})
+      styles[] = .punctuation_style_bind, .identifier;
+   }
+   
+   : inline_push {
+      uid            = uid_style_signature_parameterized
+      regex          \= (::)(\{)
+      styles[]       = .punctuation_style_bind, .punctuation_closure;
+     
+      : pop {
+         regex       \= (\})
+         styles[]    = .punctuation_closure;
+      }
+      
+      : include "style_inner";
+   }
+}
+
 jsx_attribute : context {
    : pattern {
-      regex    \= (\s+)($${__PROP})(=)
+      regex    \= (\s+)($${__IDENT})(=)
       styles[] = .whitespace, .attribute, .operator_assignment;
    }
    
    : include "primitive";
    
    : pattern {
-      regex    \= (\s+)($${__PROP})(=)($${__IDENT})
+      regex    \= (\s+)($${__IDENT})(=)($${__IDENT})
       styles[] = .whitespace, .attribute, .operator_assignment, .identifier;
    }
       
    : pattern {
-      regex    \= (\s+)($${__PROP})
+      regex    \= (\s+)($${__IDENT})
       styles[] = .whitespace, .attribute;
    }
    
@@ -621,6 +662,7 @@ jsx : context {
          : include "jsx_inner";
       }
       
+      : include "style_binding";
       : include "jsx_attribute";
    }
 
@@ -634,6 +676,7 @@ jsx : context {
          styles[] = .punctuation_tag_end;
       }
       
+      : include "style_binding";
       : include "jsx_attribute";
    }
 
@@ -821,73 +864,6 @@ view : context {
       uid            = uid_view_signature
       regex    \= (?:($${__MAIN})(\s+))?($${__VIEW})(\s+)($${__IDENT})
       styles[] = .keyword_main, .whitespace, .storage_view, .whitespace, .view;
-   }
-}
-
-style : context {
-   : inline_push {
-      uid            = uid_style_signature_parameterized
-      regex          \= (?:($${__MAIN})(\s+))?($${__STYLE})(\s+)($${__IDENT})(\s*)(\()
-      styles[]       = .keyword_main, .whitespace, .storage_style, .whitespace, .style, .whitespace, .punctuation_parameters_begin;
-     
-      : pop {
-         regex       \= (\))
-         styles[]    = .punctuation_parameters_end;
-      }
-      
-      : pattern {
-         regex       \= ($${__IDENT})(\s*)(=)
-         styles[]    = .parameter, .whitespace, .operator_assignment;
-      }   
-      
-      : pattern {
-         regex       \= ($${__IDENT})(\s*)(:)(\s*)($${__IDENT})
-         styles[]    = .parameter, .whitespace, .operator_type_defn, .whitespace, .type;
-      }
-      
-      : pattern {
-         regex       \= (:)(\s*)($${__IDENT})
-         styles[]    = .operator_type_defn, .whitespace, .type;
-      }
-      
-      : include "expression";
-      : include "symbol";
-   }
-
-   : pattern {
-      uid      = uid_style_signature
-      regex    \= (?:($${__MAIN})(\s+))?($${__STYLE})(\s+)($${__IDENT})
-      styles[] = .keyword_main, .whitespace, .storage_style, .whitespace, .style;
-   }
-   
-   : inline_push {
-      uid            = uid_style_body
-      regex          \= ({)
-      styles[]       = .punctuation_closure;
-      
-      : pop {
-         regex       \= (})
-         styles[]    = .punctuation_closure;
-      }
-      
-      : inline_push {
-         uid         = uid_style_ruleset
-         regex       \= ($${__PROP})(\s*)({)
-         styles[]    = .style_ruleset, .whitespace, .punctuation_closure;
-         
-         : pop {
-            regex    \= (})
-            styles[] = .punctuation_closure;
-         }
-         
-         : pattern {
-            regex    \= ($${__IDENT})(:)
-            styles[] = .style_rule, .punctuation_key_value;
-         }
-         
-         : include "expression";
-         : include "symbol";
-      }
    }
 }
 

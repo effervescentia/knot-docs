@@ -54,7 +54,7 @@ const config = {
     [
       'docusaurus-preset-shiki-twoslash',
       {
-        themes: ["min-light", "material-palenight"],
+        themes: ["light-plus", "material-palenight"],
         langs: [
           {
             id: 'knot',

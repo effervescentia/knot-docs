@@ -6,12 +6,20 @@ sidebar_position: 8
 
 All declarations in a [module](../module) are available for [import](../module/import-export) from within other modules.
 
-## [Constants](constant)
+## [Constant](constant)
 
 ```knot
 const TIMEOUT = 100;
 const ERR_MESSAGE = "failed to connect";
 const DEBUG = false;
+```
+
+## [Enumerated](enum)
+
+```knot
+enum Coordinates =
+  | Point2D(float, float)
+  | Point3D(float, float, float);
 ```
 
 ## [Function](function)

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 import Tabs from "@theme/Tabs";
@@ -57,7 +57,7 @@ const element = (
 </TabItem>
 </Tabs>
 
-### Empty Properties
+## Empty Properties
 
 If your view does not have any properties you can drop the parentheses as well.
 
@@ -84,7 +84,7 @@ const element = <SimpleView />;
 </TabItem>
 </Tabs>
 
-### Default Properties
+## Default Properties
 
 You can make your properties optional by passing default values.
 Unlike a function, there are no restrictions about which properties can have default values.
@@ -116,6 +116,101 @@ function PartialView({
 }
 
 const element = <PartialView first={1} third={3} />;
+```
+
+</TabItem>
+</Tabs>
+
+## Styling
+
+To control the rendering of the elements in a view you can apply styles either in an element
+expression or by creating a "styled" element which can itself be used in element expressions.
+
+### Styled Elements
+
+The recommended way to use styles is to bake them directly into elements which can then be
+easily reused between views.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const headerStyles = style {
+  fontSize: $px(10),
+};
+
+const Header = div::headerStyles;
+const Content = div::{
+  fontSize: $px(8),
+};
+
+const element =
+  <div>
+    <Header>Welcome!</Header>
+    <Content>This is my blog.</Content>
+  </div>;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+// a similar API is also provided by @emotion/styled, styled-components, styled-jss, etc.
+import { styled } from '@stitches/react';
+
+const headerStyles = {
+  fontSize: '10px',
+};
+
+const Header = styled('div', headerStyles);
+const Content = styled('div', {
+  fontSize: '8px',
+});
+
+const element = (
+  <div>
+    <Header>Welcome!</Header>
+    <Content>This is my blog.</Content>
+  </div>
+);
+```
+
+</TabItem>
+</Tabs>
+
+### Styling Element Expressions
+
+Styles can also be applied directly to elements within an expression.
+
+<Tabs>
+<TabItem value="knot" label="Knot">
+
+```knot
+const header = style {
+  fontSize: $px(10),
+};
+
+const element =
+  <div>
+    <div::header>Welcome!</div>
+    <div::{ fontSize: $px(8) }>This is my blog.</div>
+  </div>;
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const header = {
+  fontSize: '10px',
+};
+
+const element = (
+  <div>
+    <div style={header}>Welcome!</div>
+    <div style={{ fontSize: '8px' }}>This is my blog.</div>
+  </div>
+);
 ```
 
 </TabItem>

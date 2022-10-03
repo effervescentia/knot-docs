@@ -13,59 +13,63 @@ In a browser environment this is equivalent to styling elements using CSS.
 ## Definition
 
 ```knot
-const buttonStyle = style { };
+const emptyStyle = style { };
 ```
 
-## Classes
+## Style Rules
 
-Most styling will be done with classes.
+Styling rules are defined as key-value pairs. The value of each rule has implicit access to
+the `Style` module through variables prefixed with `$`.
 
 <Tabs>
 <TabItem value="knot" label="Knot">
 
 ```knot
-style CoreStyle {
-  .header {
-    color: $red;
-  }
-}
+style {
+  color: $red,
+  height: $px(100),
+};
 ```
 
 </TabItem>
 <TabItem value="css" label="CSS">
 
 ```css
-.header {
+{
   color: red;
+  height: 100px;
 }
 ```
 
 </TabItem>
 </Tabs>
 
-## Identifiers
 
-You can also use identifiers for styling.
+## Raw Style Rules
+
+It is ultimately the goal of this project to have complete covergage for writing style rules in
+idiomatic knot syntax, but CSS is complex! While our platform-specific styling libraries are
+growing it will sometimes be easiest to express styles with raw values.
+All style rule values can be optionally provided as raw strings.
 
 <Tabs>
 <TabItem value="knot" label="Knot">
 
 ```knot
-style CoreStyle {
-  #hero {
-    color: $red;
-  }
-}
+style {
+  color: "rgba(1, 23, 139)",
+};
 ```
 
 </TabItem>
 <TabItem value="css" label="CSS">
 
 ```css
-#hero {
-  color: red;
+{
+  color: rgba(1, 23, 139);
 }
 ```
 
 </TabItem>
 </Tabs>
+
